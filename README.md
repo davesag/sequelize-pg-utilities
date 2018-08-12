@@ -1,15 +1,15 @@
 # sequelize-pg-utilities
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/davesag/sequelize-pg-utilities.svg)](https://greenkeeper.io/)
-
 An opinionated set of database utilities that manage creating and connecting to a Postgres database
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/davesag/sequelize-pg-utilities.svg)](https://greenkeeper.io/)
 
 ## Branches
 
 | Branch | Status | Coverage | Notes |
 | ------ | ------ | -------- | - |
-| `develop` | [CircleCI] | [codecov] | Work in progress |
-| `master` | [CircleCI] | [codecov] | Latest stable release |
+| `develop` | [![CircleCI](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/develop.svg?style=svg)](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/develop) | [![codecov](https://codecov.io/gh/davesag/sequelize-pg-utilities/branch/develop/graph/badge.svg)](https://codecov.io/gh/davesag/sequelize-pg-utilities) | Work in progress |
+| `master` | [![CircleCI](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/master.svg?style=svg)](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/master) | [![codecov](https://codecov.io/gh/davesag/sequelize-pg-utilities/branch/master/graph/badge.svg)](https://codecov.io/gh/davesag/sequelize-pg-utilities) | Latest stable release |
 
 ## Prerequisites
 
