@@ -1,5 +1,7 @@
 # sequelize-pg-utilities
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/davesag/sequelize-pg-utilities.svg)](https://greenkeeper.io/)
+
 An opinionated set of database utilities that manage creating and connecting to a Postgres database
 
 ## Branches
