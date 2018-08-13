@@ -4,13 +4,23 @@ const configure = require('./configure')
 
 const MAX_RETRIES = 5
 
-const makeInitialiser = (config, defaultDbName, logger) => {
+/**
+ * Create a database initialisation function that uses `pgtools` to attempt to create
+ * the database as per the derived configuration.
+ *
+ * @param config — The content of the `config/config.json` file. Required, no default.
+ * @param defaultDbName — If the database name is not set an environment variable, and if the config file does not define a database name, then use this as the database name. Optional, no default.
+ * @param operatorsAliases — Sequelize recommends you don't use [operators aliases](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases), but if you want to you can set them here.  Optional, default is `false`.
+ * @param logger — You can pass in a logger function here for Sequelize to use. Optional, default is `false`, meaning don't log anything.
+ * @return an async function that initialises the database.
+ */
+const makeInitialiser = (config, defaultDbName, operatorsAliases, logger) => {
   const {
     name,
     user,
     password,
     options: { port, host }
-  } = configure(config, defaultDbName, logger)
+  } = configure(config, defaultDbName, operatorsAliases, logger)
   const dbConfig = { user, password, port, host }
   const tryInit = async () => {
     /* istanbul ignore if */

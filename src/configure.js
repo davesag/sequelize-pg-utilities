@@ -4,6 +4,17 @@
  *
  *  TODO: revisit this when the bug is fixed.
  */
+
+/**
+ *  Generate a Sequelize configuration object using a mix of environment variables,
+ *  a supplied config file, and other optional parameters.
+ *
+ * @param config — The content of the `config/config.json` file. Required, no default.
+ * @param defaultDbName — If the database name is not set an environment variable, and if the config file does not define a database name, then use this as the database name. Optional, no default.
+ * @param operatorsAliases — Sequelize recommends you don't use [operators aliases](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases), but if you want to you can set them here.  Optional, default is `false`.
+ * @param logger — You can pass in a logger function here for Sequelize to use. Optional, default is `false`, meaning don't log anything.
+ * @return { name, user, password, options }
+ */
 const configure = (
   config,
   defaultDbName,
