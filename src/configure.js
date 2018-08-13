@@ -1,13 +1,13 @@
-/**
- *  this is excluded from code coverage reporting due to a bug in instanbul
- *  whereby it will not ignore the if on line 49
+/*
+ *  This is excluded from code coverage reporting due to a bug in instanbul
+ *  whereby it will not ignore the if on line 49 unless I add a ; to the preceeding line.
  *
  *  TODO: revisit this when the bug is fixed.
  */
 
 /**
- *  Generate a Sequelize configuration object using a mix of environment variables,
- *  a supplied config file, and other optional parameters.
+ * Generate a Sequelize configuration object using a mix of environment variables,
+ * a supplied config file, and other optional parameters.
  *
  * @param config — The content of the `config/config.json` file. Required, no default.
  * @param defaultDbName — If the database name is not set an environment variable, and if the config file does not define a database name, then use this as the database name. Optional, no default.
