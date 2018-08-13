@@ -1,14 +1,14 @@
 const { expect } = require('chai')
 
 const migrationConfig = require('../../src/migrationConfig')
-const { test: config } = require('../fixtures/config.json')
+const config = require('../fixtures/config.json')
 
 describe('src/migrationConfig', () => {
   const expected = {
     test: {
-      username: config.username,
-      password: config.password,
-      database: config.database,
+      username: config.test.username,
+      password: config.test.password,
+      database: config.test.database,
       options: {
         dialect: 'postgres',
         host: 'localhost',
