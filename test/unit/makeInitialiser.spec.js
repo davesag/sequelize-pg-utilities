@@ -67,6 +67,10 @@ describe('src/makeInitialiser', () => {
           )
         )
       })
+
+      it('returned the right result', () => {
+        expect(result).to.deep.equal(expected)
+      })
     })
   })
 
@@ -75,7 +79,7 @@ describe('src/makeInitialiser', () => {
       // can't use onFirstCall().rejects(...) due to a bug in sinon.
       mockPgTools.createdb
         .onFirstCall()
-        .returns(Promise.reject({ message: 'Something went wrong' }))
+        .returns(Promise.reject(new Error('Something went wrong')))
       mockPgTools.createdb.onSecondCall().resolves()
 
       await init()
