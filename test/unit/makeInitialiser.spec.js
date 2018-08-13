@@ -2,7 +2,7 @@ const { expect } = require('chai')
 const { stub } = require('sinon')
 const proxyquire = require('proxyquire')
 
-const { test: config } = require('../fixtures/config.json')
+const config = require('../fixtures/config.json')
 
 describe('src/makeInitialiser', () => {
   const mockPgTools = {

@@ -5,6 +5,8 @@
  *  TODO: revisit this when the bug is fixed.
  */
 
+const env = require('./env')
+
 /**
  * Generate a Sequelize configuration object using a mix of environment variables,
  * a supplied config file, and other optional parameters.
@@ -16,7 +18,7 @@
  * @return { name, user, password, options }
  */
 const configure = (
-  config,
+  { [env]: config },
   defaultDbName,
   operatorsAliases = false,
   logger = false
