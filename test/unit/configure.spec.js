@@ -1,15 +1,15 @@
 const { expect } = require('chai')
 
 const { configure } = require('../../src')
-const { test: config } = require('../fixtures/config.json')
+const config = require('../fixtures/config.json')
 
 describe('src/configure', () => {
   const expected = {
-    name: config.database,
-    user: config.username,
-    password: config.password,
+    name: config.test.database,
+    user: config.test.username,
+    password: config.test.password,
     options: {
-      host: config.host,
+      host: config.test.host,
       port: 5432,
       dialect: 'postgres',
       pool: {

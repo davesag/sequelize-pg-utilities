@@ -1,6 +1,6 @@
 {
   "name": "sequelize-pg-utilities",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An opinionated set of database utilities that manage creating and connecting to a Postgres database",
   "main": "src/index.js",
   "directories": {
