@@ -112,6 +112,21 @@ const start = async () => {
 }
 ```
 
+You can set the number of retries by passing it in as a parameter to `initialise`. The default is `5`.
+
+```
+const result = await initialise(10)
+```
+
+The `result` object has two properties:
+
+```
+{
+  dbNew: <true>|<false>, // was a new database created?
+  message: 'More information lives here' // some clarifying text.
+}
+```
+
 ### Configuring migrations
 
 The Sequelize CLI requires that you define a `.sequelizerc` file at the root of your project that exports data such as `config`, `migrations-path`, and `models-path`.

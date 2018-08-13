@@ -21,7 +21,9 @@ const makeInitialiser = (config, defaultDbName, operatorsAliases, logger) => {
     password,
     options: { port, host }
   } = configure(config, defaultDbName, operatorsAliases, logger)
+
   const dbConfig = { user, password, port, host }
+
   const tryInit = async () => {
     /* istanbul ignore if */
     if (process.env.NODE_ENV === 'production') {
@@ -37,7 +39,7 @@ const makeInitialiser = (config, defaultDbName, operatorsAliases, logger) => {
         isNew: true,
         message: `createdb created database '${name}'`
       }
-    } catch (err) /* istanbul ignore next */ {
+    } catch (err) {
       if (err.name && err.name === 'duplicate_database') {
         return {
           isNew: false,
@@ -50,10 +52,12 @@ const makeInitialiser = (config, defaultDbName, operatorsAliases, logger) => {
 
   const initialise = async (retries = MAX_RETRIES) => {
     try {
-      return tryInit(config, defaultDbName)
-    } catch (err) /* istanbul ignore next */ {
+      return await tryInit()
+    } catch (err) {
       if (retries === 0) throw err
       const delay = MAX_RETRIES - retries
+
+      /* istanbul ignore next */
       if (logger && typeof logger.debug === 'function')
         logger.debug('Retrying database init in', delay, 'seconds')
       await sleep(1000 * delay)
