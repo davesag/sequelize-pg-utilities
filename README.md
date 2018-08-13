@@ -28,10 +28,6 @@ Add `sequelize-pg-utilities` as a `dependency`:
 
 * [`pgtools`](https://www.npmjs.com/package/pgtools)
 
-```
-npm i sequelize pg pgtools
-```
-
 ## Example
 
 ### Configuration
