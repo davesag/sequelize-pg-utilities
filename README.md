@@ -135,7 +135,15 @@ The config is in the form:
 
 ```
 {
-  [env]: { username, password, database, options }
+  [env]: {
+    username,
+    password,
+    database,
+    dialect,
+    operatorsAliases,
+    logging,
+    options
+  }
 }
 ```
 
@@ -169,7 +177,7 @@ The `configure`, `makeInitialiser`, and `migrationConfig` functions all have an 
 * `config`: The content of the `config/config.json` file. Required, no default.
 * `defaultDbName`: If the database name is not set in an environment variable, and if the config file does not define a database name, then use this as the database name. Optional, no default.
 * `operatorsAliases`: Sequelize recommends you don't use [operators aliases](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases), but if you want to you can set them here.  Optional, default is `false`.
-* `logger`: You can pass in a logger function here for Sequelize to use. Optional, default is `false`, meaning don't log anything.
+* `logger`: You can pass in a logger function here for Sequelize to use. Optional, default is `false`, meaning don't log anything. This gets returned as `logging` in the configs.
 
 ## Contributing
 
