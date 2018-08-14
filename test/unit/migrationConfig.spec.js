@@ -10,10 +10,10 @@ describe('src/migrationConfig', () => {
       password: config.test.password,
       database: config.test.database,
       dialect: config.test.dialect,
+      operatorsAliases: false,
       options: {
         host: 'localhost',
         logging: false,
-        operatorsAliases: false,
         pool: {
           idle: 10000,
           max: 5,
