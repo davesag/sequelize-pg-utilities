@@ -11,9 +11,9 @@ describe('src/migrationConfig', () => {
       database: config.test.database,
       dialect: config.test.dialect,
       operatorsAliases: false,
+      logging: false,
       options: {
         host: 'localhost',
-        logging: false,
         pool: {
           idle: 10000,
           max: 5,
