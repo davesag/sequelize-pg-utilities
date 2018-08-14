@@ -1,8 +1,13 @@
 const configure = require('./configure')
 const env = require('./env')
 
-const adapt = ({ name: database, user: username, password, ...options }) => ({
-  [env]: { database, username, password, ...options }
+const adapt = ({
+  name: database,
+  user: username,
+  password,
+  options: { dialect, ...options }
+}) => ({
+  [env]: { database, username, password, dialect, options }
 })
 
 /**

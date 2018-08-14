@@ -9,8 +9,8 @@ describe('src/migrationConfig', () => {
       username: config.test.username,
       password: config.test.password,
       database: config.test.database,
+      dialect: config.test.dialect,
       options: {
-        dialect: 'postgres',
         host: 'localhost',
         logging: false,
         operatorsAliases: false,
