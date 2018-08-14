@@ -141,13 +141,22 @@ The config is in the form:
 
 You can use the `migrationConfig` function to generate configuration details to suit SequelizeCLI's needs.
 
+Somewhere in your code, create a `migrationConfig.js` file as follows:
+
 ```
-const path = require('path')
 const { migrationConfig } = require('sequelize-pg-utilities')
 const config = require('path/to/config/config.json')
 
+module.exports = migrationConfig(config)
+```
+
+Then in your `.sequelizerc` file do this:
+
+```
+const path = require('path')
+
 module.exports = {
-  config: migrationConfig(config),
+  config: path.resolve(__dirname, 'path', 'to', 'migrationConfig.js'),
   'migrations-path': path.resolve(__dirname, 'migrations'),
   'models-path': path.resolve(__dirname, 'src', 'models')
 }

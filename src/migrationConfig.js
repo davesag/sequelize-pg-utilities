@@ -17,7 +17,7 @@ const adapt = ({
  * @param defaultDbName — If the database name is not set an environment variable, and if the config file does not define a database name, then use this as the database name. Optional, no default.
  * @param operatorsAliases — Sequelize recommends you don't use [operators aliases](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases), but if you want to you can set them here.  Optional, default is `false`.
  * @param logger — You can pass in a logger function here for Sequelize to use. Optional, default is `false`, meaning don't log anything.
- * @return { [env]: { database, username, password, options } }
+ * @return { [env]: { database, username, password, dialect, options } }
  */
 const migrationConfig = (config, defaultDbName, operatorsAliases, logger) =>
   adapt(configure(config, defaultDbName, operatorsAliases, logger))
