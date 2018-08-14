@@ -141,13 +141,22 @@ The config is in the form:
 
 You can use the `migrationConfig` function to generate configuration details to suit SequelizeCLI's needs.
 
+Somewhere in your code, create a `migrationConfig.js` file as follows:
+
 ```
-const path = require('path')
 const { migrationConfig } = require('sequelize-pg-utilities')
 const config = require('path/to/config/config.json')
 
+module.exports = migrationConfig(config)
+```
+
+Then in your `.sequelizerc` file do this:
+
+```
+const path = require('path')
+
 module.exports = {
-  config: migrationConfig(config),
+  config: path.resolve(__dirname, 'path', 'to', 'migrationConfig.js'),
   'migrations-path': path.resolve(__dirname, 'migrations'),
   'models-path': path.resolve(__dirname, 'src', 'models')
 }
@@ -158,7 +167,7 @@ module.exports = {
 The `configure`, `makeInitialiser`, and `migrationConfig` functions all have an identical signature.  They accept the following parameters.
 
 * `config`: The content of the `config/config.json` file. Required, no default.
-* `defaultDbName`: If the database name is not set an environment variable, and if the config file does not define a database name, then use this as the database name. Optional, no default.
+* `defaultDbName`: If the database name is not set in an environment variable, and if the config file does not define a database name, then use this as the database name. Optional, no default.
 * `operatorsAliases`: Sequelize recommends you don't use [operators aliases](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases), but if you want to you can set them here.  Optional, default is `false`.
 * `logger`: You can pass in a logger function here for Sequelize to use. Optional, default is `false`, meaning don't log anything.
 
