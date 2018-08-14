@@ -1,6 +1,6 @@
 {
   "name": "sequelize-pg-utilities",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An opinionated set of database utilities that manage creating and connecting to a Postgres database",
   "main": "src/index.js",
   "directories": {
@@ -67,10 +67,10 @@
     "chai-almost": "^1.0.1",
     "chai-as-promised": "^7.1.1",
     "eslint": "^5.3.0",
-    "eslint-config-prettier": "^3.0.0",
+    "eslint-config-prettier": "^3.0.1",
     "eslint-config-standard": "^11.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-mocha": "^5.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-mocha": "^5.2.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-prettier": "^2.6.2",
     "eslint-plugin-promise": "^3.8.0",
