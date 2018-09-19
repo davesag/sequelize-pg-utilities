@@ -141,7 +141,8 @@ The `config` is an object in the form:
     database,
     dialect,
     host,
-    port
+    port,
+    operatorsAliases
   }
 }
 ```
