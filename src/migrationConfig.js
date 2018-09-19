@@ -5,16 +5,15 @@ const adapt = ({
   name: database,
   user: username,
   password,
-  options: { dialect, operatorsAliases, logging, ...options }
+  options: { dialect, host, port }
 }) => ({
   [env]: {
     database,
     username,
     password,
     dialect,
-    operatorsAliases,
-    logging,
-    options
+    host,
+    port
   }
 })
 
