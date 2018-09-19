@@ -6,6 +6,7 @@
  */
 
 const env = require('./env')
+const urlParser = require('./urlParser')
 
 /**
  * Generate a Sequelize configuration object using a mix of environment variables,
@@ -23,16 +24,19 @@ const configure = (
   operatorsAliases = false,
   logger = false
 ) => {
+  const parsedUrl = urlParser(process.env.DATABASE_URL)
+
   const name =
+    parsedUrl.database ||
     process.env.DB_NAME ||
     config.database ||
-    /* istanbul ignore next */ defaultDbName
-  const user =
-    process.env.DB_USER || config.username || /* istanbul ignore next */ null
-  const password =
-    process.env.DB_PASS || config.password || /* istanbul ignore next */ null
+    defaultDbName
 
-  /* istanbul ignore next */
+  const user =
+    parsedUrl.username || process.env.DB_USER || config.username || null
+  const password =
+    parsedUrl.password || process.env.DB_PASS || config.password || null
+
   const poolOptions = config.pool
     ? {
         max: process.env.DB_POOL_MAX || config.pool.max || 5,
@@ -46,22 +50,18 @@ const configure = (
       }
 
   const options = {
-    host:
-      process.env.DB_HOST ||
-      config.host ||
-      /* istanbul ignore next */ 'localhost',
-    port: process.env.DB_PORT || config.port || 5432,
+    host: parsedUrl.host || process.env.DB_HOST || config.host || 'localhost',
+    port: parsedUrl.port || process.env.DB_PORT || config.port || 5432,
     dialect:
-      process.env.DB_TYPE ||
-      config.dialect ||
-      /* istanbul ignore next */ 'postgres',
+      parsedUrl.dialect || process.env.DB_TYPE || config.dialect || 'postgres',
     pool: poolOptions,
     operatorsAliases, // see https://github.com/sequelize/sequelize/issues/8417
     logging: logger // this can be a logging function.
   }
 
   /* istanbul ignore if */
-  if (process.env.DATABASE_URL) options.protocol = config.protocol
+  if (process.env.DATABASE_URL)
+    options.protocol = parsedUrl.protocol || config.protocol
 
   return { name, user, password, options }
 }
