@@ -51,7 +51,7 @@ const configure = (
 
   const options = {
     host: parsedUrl.host || process.env.DB_HOST || config.host || 'localhost',
-    port: parsedUrl.host || process.env.DB_PORT || config.port || 5432,
+    port: parsedUrl.port || process.env.DB_PORT || config.port || 5432,
     dialect:
       parsedUrl.dialect || process.env.DB_TYPE || config.dialect || 'postgres',
     pool: poolOptions,
