@@ -18,4 +18,12 @@ describe('src/urlParser', () => {
   it('parses an Heroku style database url', () => {
     expect(urlParser(dbUrl)).to.deep.equal(expected)
   })
+
+  it('parses nothing into {}', () => {
+    expect(urlParser()).to.deep.equal({})
+  })
+
+  it('parses an empty string into {}', () => {
+    expect(urlParser('')).to.deep.equal({})
+  })
 })
