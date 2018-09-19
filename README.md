@@ -131,7 +131,7 @@ The `result` object has two properties:
 
 The Sequelize CLI requires that you define a `.sequelizerc` file at the root of your project that exports data such as `config`, `migrations-path`, and `models-path`.
 
-The config is in the form:
+The `config` is an object in the form:
 
 ```
 {
@@ -140,9 +140,8 @@ The config is in the form:
     password,
     database,
     dialect,
-    operatorsAliases,
-    logging,
-    options
+    host,
+    port
   }
 }
 ```
