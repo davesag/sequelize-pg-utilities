@@ -11,7 +11,8 @@ describe('src/migrationConfig', () => {
       database: config.test.database,
       dialect: config.test.dialect,
       host: config.test.host,
-      port: 5432
+      port: 5432,
+      operatorsAliases: false
     }
   }
 
