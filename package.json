@@ -1,8 +1,11 @@
 {
   "name": "sequelize-pg-utilities",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "An opinionated set of database utilities that manage creating and connecting to a Postgres database",
   "main": "src/index.js",
+  "engines": {
+    "node": ">8.12.0"
+  },
   "directories": {
     "test": "test"
   },
@@ -18,11 +21,11 @@
     "url": "git+https://github.com/davesag/sequelize-pg-utilities.git"
   },
   "keywords": [
-    "express",
-    "mocks",
-    "testing",
-    "request",
-    "response"
+    "postgres",
+    "postgresql",
+    "database",
+    "configuration",
+    "config"
   ],
   "author": "Dave Sag <davesag@gmail.com>",
   "license": "MIT",
