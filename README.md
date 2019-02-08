@@ -4,6 +4,10 @@ An opinionated set of database utilities that manage creating and connecting to 
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/davesag/sequelize-pg-utilities.svg)](https://greenkeeper.io/)
 
+## Related Projects
+
+* [`sequelize-test-helpers`](https://github.com/davesag/sequelize-test-helpers) — Mocks and helpers that simplify unit testing of Sequelize models.
+
 ## Branches
 
 | Branch | Status | Coverage | Notes |
