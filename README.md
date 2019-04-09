@@ -6,31 +6,36 @@ An opinionated set of database utilities that manage creating and connecting to 
 
 ## Related Projects
 
-* [`sequelize-test-helpers`](https://github.com/davesag/sequelize-test-helpers) — Mocks and helpers that simplify unit testing of Sequelize models.
+- [`sequelize-test-helpers`](https://github.com/davesag/sequelize-test-helpers) — Mocks and helpers that simplify unit testing of Sequelize models.
 
 ## Branches
 
+<!-- prettier-ignore -->
 | Branch | Status | Coverage | Notes |
-| ------ | ------ | -------- | - |
+| ------ | ------ | -------- | ----- |
 | `develop` | [![CircleCI](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/develop.svg?style=svg)](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/develop) | [![codecov](https://codecov.io/gh/davesag/sequelize-pg-utilities/branch/develop/graph/badge.svg)](https://codecov.io/gh/davesag/sequelize-pg-utilities) | Work in progress |
 | `master` | [![CircleCI](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/master.svg?style=svg)](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/master) | [![codecov](https://codecov.io/gh/davesag/sequelize-pg-utilities/branch/master/graph/badge.svg)](https://codecov.io/gh/davesag/sequelize-pg-utilities) | Latest stable release |
+
+[![NPM](https://nodei.co/npm/sequelize-pg-utilities.png)](https://nodei.co/npm/sequelize-pg-utilities/)
 
 ## Prerequisites
 
 This library assumes:
 
 1. You are using NodeJS 8+
-2. You are using Sequelize to manage interactions with Postgres
+2. You are using [`Sequelize`](https://github.com/sequelize/sequelize) to manage interactions with [`Postgresql`](https://www.postgresql.org)
 
 ## Install
 
-Add `sequelize-pg-utilities` as a `dependency`:
+Add `sequelize-pg-utilities` as a dependency:
 
-    npm i sequelize-pg-utilities
+```
+npm i sequelize-pg-utilities
+```
 
 `sequelize-pg-utilities` has one dependency.
 
-* [`pgtools`](https://www.npmjs.com/package/pgtools)
+- [`pgtools`](https://www.npmjs.com/package/pgtools)
 
 ## Example
 
@@ -79,16 +84,16 @@ const sequelize = new Sequelize(name, user, password, options)
 
 The following environment variables take precedence over whatever is defined in `config/config.json`
 
-* `DATABASE_URL` The database url, if provided, will override many of the below `DB` settings.
-* `DB_NAME` The database name — You may also supply a default (see below)
-* `DB_USER` The database user — no default
-* `DB_PASS` The database password — no default
-* `DB_POOL_MAX` The maximum number of database connections — Defaults to `5`
-* `DB_POOL_MIN` The minimum number of database connections — Defaults to `1`
-* `DB_POOL_IDLE` The database idle time — Defaults to `10000` ms
-* `DB_HOST` The database host — Defaults to `'localhost'`
-* `DB_PORT` The database port — Defaults to `5432`
-* `DB_TYPE` The database type — Defaults to `'postgres'` — This library is written with Postgres in mind so please don't change this unless you know what you are doing.
+- `DATABASE_URL` The database url, if provided, will override many of the below `DB` settings.
+- `DB_NAME` The database name — You may also supply a default (see below)
+- `DB_USER` The database user — no default
+- `DB_PASS` The database password — no default
+- `DB_POOL_MAX` The maximum number of database connections — Defaults to `5`
+- `DB_POOL_MIN` The minimum number of database connections — Defaults to `1`
+- `DB_POOL_IDLE` The database idle time — Defaults to `10000` ms
+- `DB_HOST` The database host — Defaults to `'localhost'`
+- `DB_PORT` The database port — Defaults to `5432`
+- `DB_TYPE` The database type — Defaults to `'postgres'` — This library is written with Postgres in mind so please don't change this unless you know what you are doing.
 
 If you supply the `DATABASE_URL` environment variable, as Heroku and other Paas systems generally do, then the `configure` function will extract most of what it needs from that and those extracted values will take priority over other values.
 
@@ -176,12 +181,29 @@ module.exports = {
 
 ### Options
 
-The `configure`, `makeInitialiser`, and `migrationConfig` functions all have an identical signature.  They accept the following parameters.
+The `configure`, `makeInitialiser`, and `migrationConfig` functions all have an identical signature. They accept the following parameters.
 
-* `config`: The content of the `config/config.json` file. Required, no default.
-* `defaultDbName`: If the database name is not set in an environment variable, and if the config file does not define a database name, then use this as the database name. Optional, no default.
-* `operatorsAliases`: Sequelize recommends you don't use [operators aliases](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases), but if you want to you can set them here.  Optional, default is `false`.
-* `logger`: You can pass in a logger function here for Sequelize to use. Optional, default is `false`, meaning don't log anything. This gets returned as `logging` in the configs.
+- `config`: The content of the `config/config.json` file. Required, no default.
+- `defaultDbName`: If the database name is not set in an environment variable, and if the config file does not define a database name, then use this as the database name. Optional, no default.
+- `operatorsAliases`: Sequelize recommends you don't use [operators aliases](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases), but if you want to you can set them here. Optional, default is `false`.
+- `logger`: You can pass in a logger function here for Sequelize to use. Optional, default is `false`, meaning don't log anything. This gets returned as `logging` in the configs.
+
+## Development
+
+### Prerequisites
+
+- [NodeJS](https://nodejs.org) — Version `8` or better.
+
+### Test it
+
+- `npm test` — runs the unit tests.
+- `npm run test:coverage` — runs the unit tests with coverage reporting.
+
+### Lint it
+
+```
+npm run lint
+```
 
 ## Contributing
 
