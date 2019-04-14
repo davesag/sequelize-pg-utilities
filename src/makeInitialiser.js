@@ -1,6 +1,8 @@
 const pgtools = require('pgtools')
+
 const sleep = require('./sleep')
 const configure = require('./configure')
+const env = require('./env')
 
 const MAX_RETRIES = 5
 
@@ -25,8 +27,7 @@ const makeInitialiser = (config, defaultDbName, operatorsAliases, logger) => {
   const dbConfig = { user, password, port, host }
 
   const tryInit = async () => {
-    /* istanbul ignore if */
-    if (process.env.NODE_ENV === 'production') {
+    if (env === 'production') {
       return {
         dbNew: false,
         message: 'Running in production so skip database creation.'
@@ -55,9 +56,9 @@ const makeInitialiser = (config, defaultDbName, operatorsAliases, logger) => {
       return await tryInit()
     } catch (err) {
       if (retries === 0) throw err
-      const delay = MAX_RETRIES - retries
+      const delay = 2 * (MAX_RETRIES - retries + 1)
 
-      /* istanbul ignore next */
+      /* istanbul ignore else */
       if (logger && typeof logger.debug === 'function')
         logger.debug('Retrying database init in', delay, 'seconds')
       await sleep(1000 * delay)
