@@ -22,14 +22,14 @@ An opinionated set of database utilities that manage creating and connecting to 
 
 This library assumes:
 
-1. You are using NodeJS 8+
+1. You are using NodeJS 8.10+
 2. You are using [`Sequelize`](https://github.com/sequelize/sequelize) to manage interactions with [`Postgresql`](https://www.postgresql.org)
 
 ## Install
 
 Add `sequelize-pg-utilities` as a dependency:
 
-```
+```sh
 npm i sequelize-pg-utilities
 ```
 
@@ -43,7 +43,7 @@ npm i sequelize-pg-utilities
 
 Typically a Sequelize project will include a `config/config.json` file with entries as follows:
 
-```
+```json
 {
   "development": {
     "username": "my-dev-user",
@@ -63,11 +63,11 @@ Typically a Sequelize project will include a `config/config.json` file with entr
 }
 ```
 
-When your application starts you'll want to construct correct database configuration values as a mix of the above config file, selected environment variables, and sensible defaults.
+When your application starts you'll need to construct correct database configuration values as a mix of the above config file, selected environment variables, and sensible defaults.
 
 To do this simply create a configuration object as follows:
 
-```
+```js
 const { configure } = require('sequelize-pg-utilities')
 const config = require('path/to/config/config.json')
 
@@ -76,7 +76,7 @@ const { name, user, password, options } = configure(config)
 
 These configuration values can then be passed in to Sequelize as follows:
 
-```
+```js
 const sequelize = new Sequelize(name, user, password, options)
 ```
 
@@ -95,13 +95,13 @@ The following environment variables take precedence over whatever is defined in 
 - `DB_PORT` The database port — Defaults to `5432`
 - `DB_TYPE` The database type — Defaults to `'postgres'` — This library is written with Postgres in mind so please don't change this unless you know what you are doing.
 
-If you supply the `DATABASE_URL` environment variable, as Heroku and other Paas systems generally do, then the `configure` function will extract most of what it needs from that and those extracted values will take priority over other values.
+If you supply the `DATABASE_URL` environment variable, as Heroku and other PaaS systems generally do, then the `configure` function will extract most of what it needs from that and the extracted values will take priority over other values.
 
 ### Initialisation of a database
 
-Often, especially in development and test environments, you'll want your server to create its database the first time it runs. To do this you can make an `initialiser` using the `makeInitialiser` function.
+In `development` and `test` environments, you'll need your server to create a database the first time it runs. To do this you can make an `initialiser` using the `makeInitialiser` function.
 
-```
+```js
 const { makeInitialiser } = require('sequelize-pg-utilities')
 const config = require('path/to/config/config.json')
 
@@ -110,8 +110,7 @@ const initialise = makeInitialiser(config)
 const start = async () => {
   try {
     const result = await initialise()
-
-    if (isDevelopment) console.log(result.message)
+    console.log(result.message)
 
     // now do whatever else is needed to start your server
   } catch (err) {
@@ -123,26 +122,30 @@ const start = async () => {
 
 You can set the number of retries by passing it in as a parameter to `initialise`. The default is `5`.
 
-```
+```js
 const result = await initialise(10)
 ```
+
+On each retry it will wait for a progressively longer period of time, starting with 2 seconds, and increasing the delay by 2 seconds each retry.
 
 The `result` object has two properties:
 
 ```
 {
-  dbNew: <true>|<false>, // was a new database created?
-  message: 'More information lives here' // some clarifying text.
+  dbNew: false, // or true if a new database was created?
+  message: 'More information' // some clarifying text.
 }
 ```
 
+In `production` it assumes your database already exists.
+
 ### Configuring migrations
 
-The Sequelize CLI requires that you define a `.sequelizerc` file at the root of your project that exports data such as `config`, `migrations-path`, and `models-path`.
+The Sequelize CLI requires a `.sequelizerc` file at the root of the project that exports data such as `config`, `migrations-path`, and `models-path`.
 
 The `config` is an object in the form:
 
-```
+```js
 {
   [env]: {
     username,
@@ -156,20 +159,20 @@ The `config` is an object in the form:
 }
 ```
 
-You can use the `migrationConfig` function to generate configuration details to suit SequelizeCLI's needs.
+Use the `migrationConfig` function to generate configuration details to suit Sequelize CLI's needs.
 
-Somewhere in your code, create a `migrationConfig.js` file as follows:
+Create a `migrationConfig.js` file as follows:
 
-```
+```js
 const { migrationConfig } = require('sequelize-pg-utilities')
 const config = require('path/to/config/config.json')
 
 module.exports = migrationConfig(config)
 ```
 
-Then in your `.sequelizerc` file do this:
+Then in `.sequelizerc` file do this:
 
-```
+```js
 const path = require('path')
 
 module.exports = {
@@ -192,16 +195,17 @@ The `configure`, `makeInitialiser`, and `migrationConfig` functions all have an 
 
 ### Prerequisites
 
-- [NodeJS](https://nodejs.org) — Version `8` or better.
+- [NodeJS](https://nodejs.org) — Version `8.10` or better.
 
 ### Test it
 
 - `npm test` — runs the unit tests.
 - `npm run test:coverage` — runs the unit tests with coverage reporting.
+- `npm run test:mutants` — runs the mutation tests
 
 ### Lint it
 
-```
+```sh
 npm run lint
 ```
 
