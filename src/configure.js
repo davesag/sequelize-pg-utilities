@@ -63,6 +63,11 @@ const configure = (
   if (process.env.DATABASE_URL)
     options.protocol = parsedUrl.protocol || config.protocol
 
+  if (config.ssl) {
+    options.dialectOptions = { ssl: config.ssl }
+    options.ssl = true
+  }
+
   return { name, user, password, options }
 }
 

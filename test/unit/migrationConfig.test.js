@@ -1,10 +1,11 @@
 const { expect } = require('chai')
 
 const migrationConfig = require('../../src/migrationConfig')
-const config = require('../fixtures/config.json')
+const configWithoutSSL = require('../fixtures/config-without-ssl.json')
+const configWithSSL = require('../fixtures/config-with-ssl.json')
 
 describe('src/migrationConfig', () => {
-  const expected = {
+  const base = config => ({
     test: {
       username: config.test.username,
       password: config.test.password,
@@ -14,11 +15,37 @@ describe('src/migrationConfig', () => {
       port: 5432,
       operatorsAliases: false
     }
-  }
+  })
 
-  const conf = migrationConfig(config)
+  let result
 
-  it('gave the expected result', () => {
-    expect(conf).to.deep.equal(expected)
+  context('without ssl', () => {
+    const expected = base(configWithoutSSL)
+
+    before(() => {
+      result = migrationConfig(configWithoutSSL)
+    })
+
+    it('gave the expected result', () => {
+      expect(result).to.deep.equal(expected)
+    })
+  })
+
+  context('with ssl', () => {
+    const expected = {
+      ...base(configWithSSL),
+      dialectOptions: {
+        ssl: configWithSSL.test.ssl
+      },
+      ssl: true
+    }
+
+    before(() => {
+      result = migrationConfig(configWithSSL)
+    })
+
+    it('gave the expected result', () => {
+      expect(result).to.deep.equal(expected)
+    })
   })
 })
