@@ -1,0 +1,15 @@
+{
+  "test": {
+    "username": "test",
+    "password": "testing",
+    "database": "no-such-database",
+    "host": "localhost",
+    "dialect": "postgres",
+    "ssl": {
+      "rejectUnauthorized": false,
+      "ca": "some-root-cert",
+      "key": "some-client-key",
+      "cert": "some-client-certificate"
+    }
+  }
+}

@@ -191,6 +191,12 @@ The `configure`, `makeInitialiser`, and `migrationConfig` functions all have an 
 - `operatorsAliases`: Sequelize recommends you don't use [operators aliases](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases), but if you want to you can set them here. Optional, default is `false`.
 - `logger`: You can pass in a logger function here for Sequelize to use. Optional, default is `false`, meaning don't log anything. This gets returned as `logging` in the configs.
 
+### SSL Options
+
+If you supply `ssl` options in your `config.json` file then these will be injected into your configuration as `dialectOptions` and the `ssl` option will be set to `true`.
+
+Note this is not used by `makeInitialiser` as it's assumed that you are only using `ssl` in `production` and you won't be trying to create your database from within your code when in `production`. A future release may address that however.
+
 ## Development
 
 ### Prerequisites
