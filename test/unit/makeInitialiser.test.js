@@ -2,7 +2,7 @@ const { expect } = require('chai')
 const { stub, match, resetHistory } = require('sinon')
 const proxyquire = require('proxyquire')
 
-const config = require('../fixtures/config.json')
+const config = require('../fixtures/config-without-ssl.json')
 
 describe('src/makeInitialiser', () => {
   const pgTools = {

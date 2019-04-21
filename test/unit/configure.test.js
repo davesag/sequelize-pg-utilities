@@ -1,10 +1,11 @@
 const { expect } = require('chai')
 
 const { configure } = require('../../src')
-const config = require('../fixtures/config.json')
+const configWithoutSSL = require('../fixtures/config-without-ssl.json')
+const configWithSSL = require('../fixtures/config-with-ssl.json')
 
 describe('src/configure', () => {
-  const expected = {
+  const base = config => ({
     name: config.test.database,
     user: config.test.username,
     password: config.test.password,
@@ -20,11 +21,41 @@ describe('src/configure', () => {
       operatorsAliases: false,
       logging: false
     }
-  }
+  })
 
-  const result = configure(config)
+  let result
 
-  it('returns the expected result', () => {
-    expect(result).to.deep.equal(expected)
+  context('without ssl', () => {
+    const expected = base(configWithoutSSL)
+
+    before(() => {
+      result = configure(configWithoutSSL)
+    })
+
+    it('returns the expected result', () => {
+      expect(result).to.deep.equal(expected)
+    })
+  })
+
+  context('with ssl', () => {
+    const expected = base(configWithSSL)
+    const expectedWithSSL = {
+      ...expected,
+      options: {
+        ...expected.options,
+        dialectOptions: {
+          ssl: configWithSSL.test.ssl
+        },
+        ssl: true
+      }
+    }
+
+    before(() => {
+      result = configure(configWithSSL)
+    })
+
+    it('returns the expected result', () => {
+      expect(result).to.deep.equal(expectedWithSSL)
+    })
   })
 })

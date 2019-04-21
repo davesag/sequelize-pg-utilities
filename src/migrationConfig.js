@@ -5,18 +5,23 @@ const adapt = ({
   name: database,
   user: username,
   password,
-  options: { dialect, host, port, operatorsAliases }
-}) => ({
-  [env]: {
-    database,
-    username,
-    password,
-    dialect,
-    host,
-    port,
-    operatorsAliases
+  options: { dialect, dialectOptions, host, port, ssl, operatorsAliases }
+}) => {
+  const adapted = {
+    [env]: {
+      database,
+      username,
+      password,
+      dialect,
+      host,
+      port,
+      operatorsAliases
+    }
   }
-})
+  if (dialectOptions) adapted.dialectOptions = dialectOptions
+  if (ssl) adapted.ssl = ssl
+  return adapted
+}
 
 /**
  * Create database migration confguration data needed by SequelizeCLI.
