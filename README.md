@@ -1,6 +1,6 @@
 # sequelize-pg-utilities
 
-An opinionated set of database utilities that manage creating and connecting to a Postgres database
+An opinionated set of database utilities that manage creating and connecting to a [`Postgresql`](https://www.postgresql.org) database via [`Sequelize`](https://github.com/sequelize/sequelize).
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/davesag/sequelize-pg-utilities.svg)](https://greenkeeper.io/)
 
