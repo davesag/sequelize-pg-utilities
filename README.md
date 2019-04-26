@@ -130,7 +130,7 @@ On each retry it will wait for a progressively longer period of time, starting w
 
 The `result` object has two properties:
 
-```
+```js
 {
   dbNew: false, // or true if a new database was created?
   message: 'More information' // some clarifying text.
@@ -206,7 +206,7 @@ Note this is not used by `makeInitialiser` as it's assumed that you are only usi
 ### Test it
 
 - `npm test` — runs the unit tests.
-- `npm run test:coverage` — runs the unit tests with coverage reporting.
+- `npm run test:unit:cov` — runs the unit tests with coverage reporting.
 - `npm run test:mutants` — runs the mutation tests
 
 ### Lint it
