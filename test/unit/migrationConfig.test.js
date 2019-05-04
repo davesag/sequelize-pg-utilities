@@ -5,22 +5,30 @@ const configWithoutSSL = require('../fixtures/config-without-ssl.json')
 const configWithSSL = require('../fixtures/config-with-ssl.json')
 
 describe('src/migrationConfig', () => {
-  const base = config => ({
-    test: {
-      username: config.test.username,
-      password: config.test.password,
-      database: config.test.database,
-      dialect: config.test.dialect,
-      host: config.test.host,
-      port: 5432,
-      operatorsAliases: false
+  const makeExpected = (config, operatorsAliases) => {
+    const res = {
+      test: {
+        username: config.test.username,
+        password: config.test.password,
+        database: config.test.database,
+        dialect: config.test.dialect,
+        host: config.test.host,
+        port: 5432
+      }
     }
-  })
+    if (config.test.ssl) {
+      res.test.dialectOptions = { ssl: config.test.ssl }
+      res.test.ssl = true
+    }
+    if (operatorsAliases !== undefined)
+      res.test.operatorsAliases = operatorsAliases
+    return res
+  }
 
   let result
 
   context('without ssl', () => {
-    const expected = base(configWithoutSSL)
+    const expected = makeExpected(configWithoutSSL)
 
     before(() => {
       result = migrationConfig(configWithoutSSL)
@@ -32,16 +40,23 @@ describe('src/migrationConfig', () => {
   })
 
   context('with ssl', () => {
-    const expected = {
-      ...base(configWithSSL),
-      dialectOptions: {
-        ssl: configWithSSL.test.ssl
-      },
-      ssl: true
-    }
+    const expected = makeExpected(configWithSSL)
 
     before(() => {
       result = migrationConfig(configWithSSL)
+    })
+
+    it('gave the expected result', () => {
+      expect(result).to.deep.equal(expected)
+    })
+  })
+
+  context('with operatorsAliases', () => {
+    const operatorsAliases = ['some', 'operators', 'aliases']
+    const expected = makeExpected(configWithSSL, operatorsAliases)
+
+    before(() => {
+      result = migrationConfig(configWithSSL, undefined, operatorsAliases)
     })
 
     it('gave the expected result', () => {

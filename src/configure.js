@@ -21,7 +21,7 @@ const urlParser = require('./urlParser')
 const configure = (
   { [env]: config },
   defaultDbName,
-  operatorsAliases = false,
+  operatorsAliases,
   logger = false
 ) => {
   const parsedUrl = urlParser(process.env.DATABASE_URL)
@@ -55,9 +55,12 @@ const configure = (
     dialect:
       parsedUrl.dialect || process.env.DB_TYPE || config.dialect || 'postgres',
     pool: poolOptions,
-    operatorsAliases, // see https://github.com/sequelize/sequelize/issues/8417
     logging: logger // this can be a logging function.
   }
+  // see https://github.com/sequelize/sequelize/issues/8417
+  // see also https://github.com/sequelize/sequelize/issues/8417#issuecomment-461150731
+  if (operatorsAliases !== undefined)
+    options.operatorsAliases = operatorsAliases
 
   /* istanbul ignore if */
   if (process.env.DATABASE_URL)

@@ -8,7 +8,7 @@ module.exports = function(config) {
     testRunner: 'mocha',
     mochaOptions: {
       spec: ['./test/unit/**/*.test.js'],
-      require: ['./test/unit/testHelper.js']
+      require: ['./test/testHelper.js']
     },
     transpilers: [],
     testFramework: 'mocha',
