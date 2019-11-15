@@ -2,16 +2,23 @@
   "name": "sequelize-pg-utilities",
   "version": "1.2.1",
   "description": "An opinionated set of database utilities that manage creating and connecting to a Postgres database",
+  "author": "Dave Sag <davesag@gmail.com>",
+  "type": "commonjs",
+  "license": "MIT",
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/davesag"
+  },
   "main": "src/index.js",
   "engines": {
     "node": ">= 8.10.0"
   },
   "files": [
-    "/package*.json",
-    "/CONTRIBUTING.md",
-    "/src"
+    "CONTRIBUTING.md",
+    "src"
   ],
   "directories": {
+    "lib": "src",
     "test": "test"
   },
   "scripts": {
@@ -30,16 +37,17 @@
     "configuration",
     "config"
   ],
-  "author": "Dave Sag <davesag@gmail.com>",
-  "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/davesag/sequelize-pg-utilities.git"
+    "url": "https://github.com/davesag/sequelize-pg-utilities.git"
   },
   "bugs": {
     "url": "https://github.com/davesag/sequelize-pg-utilities/issues"
   },
   "homepage": "https://github.com/davesag/sequelize-pg-utilities#readme",
+  "dependencies": {
+    "pgtools": "^0.3.0"
+  },
   "devDependencies": {
     "@stryker-mutator/core": "^2.3.0",
     "@stryker-mutator/javascript-mutator": "^2.3.0",
@@ -67,9 +75,6 @@
     "sinon": "^7.5.0",
     "sinon-chai": "^3.3.0"
   },
-  "dependencies": {
-    "pgtools": "^0.3.0"
-  },
   "prettier": {
     "semi": false,
     "singleQuote": true,
@@ -80,6 +85,11 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "nyc": {
     "check-coverage": true,
@@ -100,10 +110,5 @@
     ],
     "all": true,
     "cache": true
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
   }
 }
