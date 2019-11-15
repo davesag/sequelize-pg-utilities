@@ -1,22 +1,12 @@
 # sequelize-pg-utilities
 
-An opinionated set of database utilities that manage creating and connecting to a [`Postgresql`](https://www.postgresql.org) database via [`Sequelize`](https://github.com/sequelize/sequelize).
+An opinionated set of database utilities that simplify creating and connecting to a [`Postgresql`](https://www.postgresql.org) database via [`Sequelize`](https://github.com/sequelize/sequelize).
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/davesag/sequelize-pg-utilities.svg)](https://greenkeeper.io/)
+[![NPM](https://nodei.co/npm/sequelize-pg-utilities.png)](https://nodei.co/npm/sequelize-pg-utilities/)
 
 ## Related Projects
 
-- [`sequelize-test-helpers`](https://github.com/davesag/sequelize-test-helpers) — Mocks and helpers that simplify unit testing of Sequelize models.
-
-## Branches
-
-<!-- prettier-ignore -->
-| Branch | Status | Coverage | Notes |
-| ------ | ------ | -------- | ----- |
-| `develop` | [![CircleCI](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/develop.svg?style=svg)](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/develop) | [![codecov](https://codecov.io/gh/davesag/sequelize-pg-utilities/branch/develop/graph/badge.svg)](https://codecov.io/gh/davesag/sequelize-pg-utilities) | Work in progress |
-| `master` | [![CircleCI](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/master.svg?style=svg)](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/master) | [![codecov](https://codecov.io/gh/davesag/sequelize-pg-utilities/branch/master/graph/badge.svg)](https://codecov.io/gh/davesag/sequelize-pg-utilities) | Latest stable release |
-
-[![NPM](https://nodei.co/npm/sequelize-pg-utilities.png)](https://nodei.co/npm/sequelize-pg-utilities/)
+- [`sequelize-test-helpers`](https://github.com/davesag/sequelize-test-helpers) — Mocks and helpers that simplify unit testing of `Sequelize` models.
 
 ## Prerequisites
 
@@ -199,6 +189,16 @@ If you supply `ssl` options in your `config.json` file then these will be inject
 Note this is not used by `makeInitialiser` as it's assumed that you are only using `ssl` in `production` and you won't be trying to create your database from within your code when in `production`. A future release may address that however.
 
 ## Development
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/davesag/sequelize-pg-utilities.svg)](https://greenkeeper.io/)
+
+### Branches
+
+<!-- prettier-ignore -->
+| Branch | Status | Coverage | Notes |
+| ------ | ------ | -------- | ----- |
+| `develop` | [![CircleCI](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/develop.svg?style=svg)](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/develop) | [![codecov](https://codecov.io/gh/davesag/sequelize-pg-utilities/branch/develop/graph/badge.svg)](https://codecov.io/gh/davesag/sequelize-pg-utilities) | Work in progress |
+| `master` | [![CircleCI](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/master.svg?style=svg)](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/master) | [![codecov](https://codecov.io/gh/davesag/sequelize-pg-utilities/branch/master/graph/badge.svg)](https://codecov.io/gh/davesag/sequelize-pg-utilities) | Latest stable release |
 
 ### Prerequisites
 
