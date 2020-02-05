@@ -85,6 +85,13 @@ The following environment variables take precedence over whatever is defined in 
 - `DB_PORT` The database port — Defaults to `5432`
 - `DB_TYPE` The database type — Defaults to `'postgres'` — This library is written with Postgres in mind so please don't change this unless you know what you are doing.
 
+The following environment variables remain unset if they don't appear, or get set in `config/config.json`.
+
+- `DB_POOL_ACQUIRE` The database pool's `acquire` value.
+- `DB_POOL_EVICT` The database pool's `evict` value.
+
+#### Regarding `DATABASE_URL`.
+
 If you supply the `DATABASE_URL` environment variable, as Heroku and other PaaS systems generally do, then the `configure` function will extract most of what it needs from that and the extracted values will take priority over other values.
 
 ### Initialisation of a database
@@ -144,6 +151,21 @@ The `config` is an object in the form:
     dialect,
     host,
     port,
+    // optionally also pool, protocol, ssl
+    protocol,
+    pool: {
+      acquire: 20000,
+      evict: 15000,
+      min: 5,
+      max: 15,
+      idle: 10000
+    },
+    ssl: {
+      rejectUnauthorized: false,
+      ca: 'some-root-cert',
+      key: 'some-client-key',
+      cert: 'some-client-certificate'
+    }
   }
 }
 ```
