@@ -7,6 +7,7 @@
 
 const env = require('./env')
 const urlParser = require('./urlParser')
+const appendOptionalPoolOptions = require('./appendOptionalPoolOptions')
 
 /**
  * Generate a Sequelize configuration object using a mix of environment variables,
@@ -49,14 +50,17 @@ const configure = (
         idle: process.env.DB_POOL_IDLE || 10000
       }
 
+  const appendPoolOptions = appendOptionalPoolOptions(config)
+
   const options = {
     host: parsedUrl.host || process.env.DB_HOST || config.host || 'localhost',
     port: parsedUrl.port || process.env.DB_PORT || config.port || 5432,
     dialect:
       parsedUrl.dialect || process.env.DB_TYPE || config.dialect || 'postgres',
-    pool: poolOptions,
-    logging: logger // this can be a logging function.
+    logging: logger, // this can be a logging function.
+    pool: appendPoolOptions(poolOptions)
   }
+
   // see https://github.com/sequelize/sequelize/issues/8417
   // see also https://github.com/sequelize/sequelize/issues/8417#issuecomment-461150731
   if (operatorsAliases !== undefined)
