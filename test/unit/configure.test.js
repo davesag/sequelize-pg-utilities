@@ -1,6 +1,8 @@
 const { expect } = require('chai')
 
 const { configure } = require('../../src')
+const { PROGRAMATIC_OPTIONS } = require('../../src/constants')
+
 const configWithoutSSL = require('../fixtures/config-without-ssl.json')
 const configWithSSL = require('../fixtures/config-with-ssl.json')
 const configWithAquire = require('../fixtures/config-with-pool.aquire.json')
@@ -30,6 +32,8 @@ describe('src/configure', () => {
       res.options.dialectOptions = { ssl: config.test.ssl }
       res.options.ssl = true
     }
+    if (config.test.retry) res.options.retry = config.test.retry
+
     return res
   }
 
@@ -81,5 +85,57 @@ describe('src/configure', () => {
     it('returns the expected result', () => {
       expect(result).to.deep.equal(expected)
     })
+  })
+
+  context('with retry.max', () => {
+    const max = 5
+    const retry = { max }
+    const base = makeExpected(configWithoutSSL, false)
+
+    const expected = {
+      ...base,
+      options: {
+        ...base.options,
+        retry
+      }
+    }
+
+    before(() => {
+      result = configure(configWithoutSSL, undefined, false, undefined, {
+        retry
+      })
+    })
+
+    it('returns the expected result', () => {
+      expect(result).to.deep.equal(expected)
+    })
+  })
+
+  context('with additional options', () => {
+    const doTest = optionName => {
+      context(`with additional option ${optionName}`, () => {
+        const base = makeExpected(configWithoutSSL, false)
+
+        const expected = {
+          ...base,
+          options: {
+            ...base.options,
+            [optionName]: optionName
+          }
+        }
+
+        before(() => {
+          result = configure(configWithoutSSL, undefined, false, undefined, {
+            [optionName]: optionName
+          })
+        })
+
+        it('returns the expected result', () => {
+          expect(result).to.deep.equal(expected)
+        })
+      })
+    }
+
+    PROGRAMATIC_OPTIONS.forEach(doTest)
   })
 })
