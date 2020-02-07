@@ -3,6 +3,7 @@ const { expect } = require('chai')
 const { configure } = require('../../src')
 const configWithoutSSL = require('../fixtures/config-without-ssl.json')
 const configWithSSL = require('../fixtures/config-with-ssl.json')
+const configWithAquire = require('../fixtures/config-with-pool.aquire.json')
 
 describe('src/configure', () => {
   const makeExpected = (config, operatorsAliases) => {
@@ -15,6 +16,7 @@ describe('src/configure', () => {
         port: 5432,
         dialect: 'postgres',
         pool: {
+          ...(config.test.pool || {}),
           min: 1,
           max: 5,
           idle: 10000
@@ -62,6 +64,18 @@ describe('src/configure', () => {
 
     before(() => {
       result = configure(configWithSSL, undefined, false)
+    })
+
+    it('returns the expected result', () => {
+      expect(result).to.deep.equal(expected)
+    })
+  })
+
+  context('with pool.aquire', () => {
+    const expected = makeExpected(configWithAquire, false)
+
+    before(() => {
+      result = configure(configWithAquire, undefined, false)
     })
 
     it('returns the expected result', () => {
