@@ -3,9 +3,7 @@ const NAMES = [
   ['DB_POOL_EVICT', 'evict']
 ]
 
-const appendOptionalPoolOptions = config => {
-  console.log('config.pool', config.pool)
-
+const appendOptionalPoolOptions = (config, also = {}) => {
   const append = (acc, [e, n]) =>
     process.env[e] || config.pool[n]
       ? {
@@ -18,9 +16,10 @@ const appendOptionalPoolOptions = config => {
     config.pool
       ? {
           ...pool,
+          ...also,
           ...NAMES.reduce(append, config.pool)
         }
-      : pool
+      : { ...pool, ...also }
 }
 
 module.exports = appendOptionalPoolOptions
