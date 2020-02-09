@@ -1,6 +1,10 @@
 # sequelize-pg-utilities
 
-An opinionated set of database utilities that simplify creating and connecting to a [`Postgresql`](https://www.postgresql.org) database via [`Sequelize`](https://github.com/sequelize/sequelize).
+[`Sequelize`](https://github.com/sequelize/sequelize), and the [`Sequelize CLI`](https://github.com/sequelize/cli), use slightly different database configuration objects, and neither provide a mechanism for creating a [`Postgresql`](https://www.postgresql.org) database. I work with `Sequelize` a lot in my day-job so decided to write a simple utility suite that manages the different configuration needs any project using `Sequelize` inevitably needs.
+
+When your application starts yo need to construct correct database configuration values as a mix of a config file, selected environment variables, and sensible defaults.
+
+`sequelize-pg-utilities` is an opinionated set of database utilities that, together, simplify creating and connecting to a `Postgres` database via `Sequelize`, or the `Sequelize CLI`, via a common, and minimal, set of config file settings. You can use environment variables to override the config file settings, as well as supply a range of detailed programmatic settings that get passed on to Sequelize directly. If no values are supplied and a value is needed by Sequelize then this defines sensible defaults. Any values not needed and which have no value are simply removed from the config object sent to Sequelize.
 
 [![NPM](https://nodei.co/npm/sequelize-pg-utilities.png)](https://nodei.co/npm/sequelize-pg-utilities/)
 
@@ -27,7 +31,7 @@ npm i sequelize-pg-utilities
 
 - [`pgtools`](https://www.npmjs.com/package/pgtools)
 
-## Example
+## Usage Scenarios
 
 ### Configuration
 
@@ -242,7 +246,7 @@ They each accept the following parameters.
 - `defaultDbName`: If the database name is not set in an environment variable, and if the config file does not define a database name, then use this as the database name. Optional, no default.
 - `operatorsAliases`: Sequelize recommends you don't use [operators aliases](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases), but if you want to you can set them here. If you are using Sequelize 4 or older then you need to set this to `false` but if you are using Sequelize 5 or better you ought to just ignore this option. ([more information](https://github.com/sequelize/sequelize/issues/8417#issuecomment-461150731))
 - `logger`: You can pass in a logger function here for Sequelize to use. Optional, default is `false`, meaning don't log anything. This gets returned as `logging` in the configs.
-- `options`: optional additional configuration that is passed through to sequelize.
+- `options`: optional additional configuration that is passed through to Sequelize.
 
   These match to the options listed at [sequelize/sequelize/lib/sequelize.js#126](https://github.com/sequelize/sequelize/blob/master/lib/sequelize.js#L126), which at the time of this writing are:
 
