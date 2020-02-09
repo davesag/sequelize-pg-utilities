@@ -8,7 +8,7 @@
 const env = require('./env')
 const urlParser = require('./urlParser')
 const appendOptionalPoolOptions = require('./appendOptionalPoolOptions')
-const { PROGRAMATIC_OPTIONS } = require('./constants')
+const { CONFIG_OPTIONS, PROGRAMATIC_OPTIONS } = require('./constants')
 const onlyDefined = require('./onlyDefined')
 
 /**
@@ -65,18 +65,18 @@ const configure = (
     port: parsedUrl.port || process.env.DB_PORT || config.port || 5432,
     dialect:
       parsedUrl.dialect || process.env.DB_TYPE || config.dialect || 'postgres',
-    logging: logger, // this can be a logging function.
+    logging: logger, // this can be a logging function or false.
     pool: appendPoolOptions(poolOptions)
   }
+  // only allow whitelisted additional config.
+  CONFIG_OPTIONS.forEach(key => {
+    options[key] = config[key]
+  })
 
   // see https://github.com/sequelize/sequelize/issues/8417
   // see also https://github.com/sequelize/sequelize/issues/8417#issuecomment-461150731
   if (operatorsAliases !== undefined)
     options.operatorsAliases = operatorsAliases
-
-  /* istanbul ignore if */
-  if (process.env.DATABASE_URL)
-    options.protocol = parsedUrl.protocol || config.protocol
 
   if (config.ssl) {
     options.dialectOptions = { ssl: config.ssl }
