@@ -140,7 +140,7 @@ In `production` it assumes your database already exists.
 
 The Sequelize CLI requires a `.sequelizerc` file at the root of the project that exports data such as `config`, `migrations-path`, and `models-path`.
 
-The `config` is an object in the form:
+The `config` required by the Sequelize CLI is an object in the form:
 
 ```js
 {
@@ -152,11 +152,6 @@ The `config` is an object in the form:
     host,
     port,
     // optionally also the following
-    benchmark,
-    clientMinMessages,
-    native,
-    omitNull,
-    protocol,
     pool: {
       acquire: 20000,
       evict: 15000,
@@ -164,19 +159,18 @@ The `config` is an object in the form:
       max: 15,
       idle: 10000
     },
-    replication,
+    protocol,
     ssl: {
       rejectUnauthorized: false,
       ca: 'some-root-cert',
       key: 'some-client-key',
       cert: 'some-client-certificate'
-    },
-    timezone,
+    }
   }
 }
 ```
 
-Use the `migrationConfig` function to generate configuration details to suit Sequelize CLI's needs.
+Use the `migrationConfig` function to generate configuration details to suit Sequelize CLI's needs from your common `config` file, or environment variables.
 
 Create a `migrationConfig.js` file as follows:
 
@@ -206,10 +200,49 @@ The `configure`, `makeInitialiser`, and `migrationConfig` functions all have an 
 They each accept the following parameters.
 
 - `config`: The content of the `config/config.json` file. Required, no default.
+
+  Configuration file is in the form:
+
+  ```js
+  {
+    [env]: {
+      // everything is optional but these are usually set here
+      username,
+      password,
+      database,
+      dialect,
+      host,
+      port,
+      // less often used but optionally also the following
+      benchmark,
+      clientMinMessages,
+      native,
+      omitNull,
+      pool: {
+        acquire: 20000,
+        evict: 15000,
+        min: 5,
+        max: 15,
+        idle: 10000
+      },
+      protocol,
+      // if you have ssl specifics
+      ssl: {
+        rejectUnauthorized: false,
+        ca: 'some-root-cert',
+        key: 'some-client-key',
+        cert: 'some-client-certificate'
+      },
+      replication,
+      timezone
+    }
+  }
+  ```
+
 - `defaultDbName`: If the database name is not set in an environment variable, and if the config file does not define a database name, then use this as the database name. Optional, no default.
 - `operatorsAliases`: Sequelize recommends you don't use [operators aliases](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases), but if you want to you can set them here. If you are using Sequelize 4 or older then you need to set this to `false` but if you are using Sequelize 5 or better you ought to just ignore this option. ([more information](https://github.com/sequelize/sequelize/issues/8417#issuecomment-461150731))
 - `logger`: You can pass in a logger function here for Sequelize to use. Optional, default is `false`, meaning don't log anything. This gets returned as `logging` in the configs.
-- `options`: optional additional options that are passed through to sequelize.
+- `options`: optional additional configuration that is passed through to sequelize.
 
   These match to the options listed at [sequelize/sequelize/lib/sequelize.js#126](https://github.com/sequelize/sequelize/blob/master/lib/sequelize.js#L126), which at the time of this writing are:
 
