@@ -1,7 +1,7 @@
 const { expect } = require('chai')
 
 const { configure } = require('../../src')
-const { PROGRAMATIC_OPTIONS } = require('../../src/constants')
+const { CONFIG_OPTIONS, PROGRAMATIC_OPTIONS } = require('../../src/constants')
 
 const configWithoutSSL = require('../fixtures/config-without-ssl.json')
 const configWithSSL = require('../fixtures/config-with-ssl.json')
@@ -113,17 +113,17 @@ describe('src/configure', () => {
 
   context('with additional options', () => {
     const doTest = optionName => {
-      context(`with additional option ${optionName}`, () => {
-        const base = makeExpected(configWithoutSSL, false)
+      const base = makeExpected(configWithoutSSL, false)
 
-        const expected = {
-          ...base,
-          options: {
-            ...base.options,
-            [optionName]: optionName
-          }
+      const expected = {
+        ...base,
+        options: {
+          ...base.options,
+          [optionName]: optionName
         }
+      }
 
+      context(`with additional option ${optionName}`, () => {
         before(() => {
           result = configure(configWithoutSSL, undefined, false, undefined, {
             [optionName]: optionName
@@ -137,5 +137,37 @@ describe('src/configure', () => {
     }
 
     PROGRAMATIC_OPTIONS.forEach(doTest)
+  })
+
+  context('with additional config', () => {
+    const doTest = optionName => {
+      const config = {
+        test: {
+          ...configWithoutSSL.test,
+          [optionName]: optionName
+        }
+      }
+      const base = makeExpected(configWithoutSSL)
+
+      const expected = {
+        ...base,
+        options: {
+          ...base.options,
+          [optionName]: optionName
+        }
+      }
+
+      context(`with additional config ${optionName}`, () => {
+        before(() => {
+          result = configure(config)
+        })
+
+        it('returns the expected result', () => {
+          expect(result).to.deep.equal(expected)
+        })
+      })
+    }
+
+    CONFIG_OPTIONS.forEach(doTest)
   })
 })
