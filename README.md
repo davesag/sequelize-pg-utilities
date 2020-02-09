@@ -151,7 +151,11 @@ The `config` is an object in the form:
     dialect,
     host,
     port,
-    // optionally also pool, protocol, ssl
+    // optionally also the following
+    benchmark,
+    clientMinMessages,
+    native,
+    omitNull,
     protocol,
     pool: {
       acquire: 20000,
@@ -160,12 +164,14 @@ The `config` is an object in the form:
       max: 15,
       idle: 10000
     },
+    replication,
     ssl: {
       rejectUnauthorized: false,
       ca: 'some-root-cert',
       key: 'some-client-key',
       cert: 'some-client-certificate'
-    }
+    },
+    timezone,
   }
 }
 ```

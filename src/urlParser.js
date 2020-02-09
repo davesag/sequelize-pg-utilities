@@ -12,8 +12,7 @@ const urlParser = dbUrl => {
     host,
     port,
     database: pathname.substring(1),
-    dialect: POSTGRES,
-    protocol: POSTGRES
+    dialect: POSTGRES
   }
 }
 

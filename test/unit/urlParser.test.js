@@ -11,8 +11,7 @@ describe('src/urlParser', () => {
     password: 'aic5oO6Cran1g3hk6mJa5QqNZB',
     host: 'ec2-23-21-91-97.compute-1.amazonaws.com',
     port: '5432',
-    dialect: 'postgres',
-    protocol: 'postgres'
+    dialect: 'postgres'
   }
 
   it('parses an Heroku style database url', () => {
