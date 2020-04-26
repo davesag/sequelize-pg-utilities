@@ -55,7 +55,7 @@ describe('src/makeInitialiser', () => {
         './sleep': sleep
       })
 
-      init = makeInitialiser(config, undefined, undefined, logger)
+      init = makeInitialiser(config, undefined, logger)
     })
 
     context('succeeds', () => {

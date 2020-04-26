@@ -8,7 +8,7 @@ const configWithSSL = require('../fixtures/config-with-ssl.json')
 const configWithAquire = require('../fixtures/config-with-pool.aquire.json')
 
 describe('src/configure', () => {
-  const makeExpected = (config, operatorsAliases) => {
+  const makeExpected = config => {
     const res = {
       name: config.test.database,
       user: config.test.username,
@@ -26,8 +26,7 @@ describe('src/configure', () => {
         logging: false
       }
     }
-    if (operatorsAliases !== undefined)
-      res.options.operatorsAliases = operatorsAliases
+
     if (config.test.ssl) {
       res.options.dialectOptions = { ssl: config.test.ssl }
       res.options.ssl = true
@@ -63,18 +62,6 @@ describe('src/configure', () => {
     })
   })
 
-  context('with operatorsAliases', () => {
-    const expected = makeExpected(configWithSSL, false)
-
-    before(() => {
-      result = configure(configWithSSL, undefined, false)
-    })
-
-    it('returns the expected result', () => {
-      expect(result).to.deep.equal(expected)
-    })
-  })
-
   context('with pool.aquire', () => {
     const expected = makeExpected(configWithAquire, false)
 
@@ -90,7 +77,7 @@ describe('src/configure', () => {
   context('with retry.max', () => {
     const max = 5
     const retry = { max }
-    const base = makeExpected(configWithoutSSL, false)
+    const base = makeExpected(configWithoutSSL)
 
     const expected = {
       ...base,
@@ -101,7 +88,7 @@ describe('src/configure', () => {
     }
 
     before(() => {
-      result = configure(configWithoutSSL, undefined, false, undefined, {
+      result = configure(configWithoutSSL, undefined, undefined, {
         retry
       })
     })
@@ -113,7 +100,7 @@ describe('src/configure', () => {
 
   context('with additional options', () => {
     const doTest = optionName => {
-      const base = makeExpected(configWithoutSSL, false)
+      const base = makeExpected(configWithoutSSL)
 
       const expected = {
         ...base,
@@ -125,7 +112,7 @@ describe('src/configure', () => {
 
       context(`with additional option ${optionName}`, () => {
         before(() => {
-          result = configure(configWithoutSSL, undefined, false, undefined, {
+          result = configure(configWithoutSSL, undefined, undefined, {
             [optionName]: optionName
           })
         })
