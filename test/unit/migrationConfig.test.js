@@ -5,7 +5,7 @@ const configWithoutSSL = require('../fixtures/config-without-ssl.json')
 const configWithSSL = require('../fixtures/config-with-ssl.json')
 
 describe('src/migrationConfig', () => {
-  const makeExpected = (config, operatorsAliases) => {
+  const makeExpected = config => {
     const res = {
       test: {
         username: config.test.username,
@@ -20,8 +20,7 @@ describe('src/migrationConfig', () => {
       res.test.dialectOptions = { ssl: config.test.ssl }
       res.test.ssl = true
     }
-    if (operatorsAliases !== undefined)
-      res.test.operatorsAliases = operatorsAliases
+
     return res
   }
 
@@ -44,19 +43,6 @@ describe('src/migrationConfig', () => {
 
     before(() => {
       result = migrationConfig(configWithSSL)
-    })
-
-    it('gave the expected result', () => {
-      expect(result).to.deep.equal(expected)
-    })
-  })
-
-  context('with operatorsAliases', () => {
-    const operatorsAliases = ['some', 'operators', 'aliases']
-    const expected = makeExpected(configWithSSL, operatorsAliases)
-
-    before(() => {
-      result = migrationConfig(configWithSSL, undefined, operatorsAliases)
     })
 
     it('gave the expected result', () => {
