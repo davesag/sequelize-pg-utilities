@@ -17,7 +17,6 @@ const onlyDefined = require('./onlyDefined')
  *
  * @param config — The content of the `config/config.json` file. Required, no default.
  * @param defaultDbName — If the database name is not set an environment variable, and if the config file does not define a database name, then use this as the database name. Optional, no default.
- * @param operatorsAliases — Sequelize recommends you don't use [operators aliases](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases), but if you want to you can set them here.  Optional, default is `false`.
  * @param logger — You can pass in a logger function here for Sequelize to use. Optional, default is `false`, meaning don't log anything.
  * @param options — You can pass in additional options here. Optional.
  * @return { name, user, password, options }
@@ -25,7 +24,6 @@ const onlyDefined = require('./onlyDefined')
 const configure = (
   { [env]: config },
   defaultDbName,
-  operatorsAliases,
   logger = false,
   {
     pool: { validate } = {},
@@ -72,11 +70,6 @@ const configure = (
   CONFIG_OPTIONS.forEach(key => {
     options[key] = config[key]
   })
-
-  // see https://github.com/sequelize/sequelize/issues/8417
-  // see also https://github.com/sequelize/sequelize/issues/8417#issuecomment-461150731
-  if (operatorsAliases !== undefined)
-    options.operatorsAliases = operatorsAliases
 
   if (config.ssl) {
     options.dialectOptions = { ssl: config.ssl }

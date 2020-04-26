@@ -5,7 +5,7 @@ const adapt = ({
   name: database,
   user: username,
   password,
-  options: { dialect, dialectOptions, host, port, ssl, operatorsAliases }
+  options: { dialect, dialectOptions, host, port, ssl }
 }) => {
   const adapted = {
     [env]: {
@@ -17,10 +17,10 @@ const adapt = ({
       port
     }
   }
-  if (operatorsAliases !== undefined)
-    adapted[env].operatorsAliases = operatorsAliases
+
   if (dialectOptions) adapted[env].dialectOptions = dialectOptions
   if (ssl) adapted[env].ssl = ssl
+
   return adapted
 }
 
@@ -29,17 +29,11 @@ const adapt = ({
  *
  * @param config — The content of the `config/config.json` file. Required, no default.
  * @param defaultDbName — If the database name is not set an environment variable, and if the config file does not define a database name, then use this as the database name. Optional, no default.
- * @param operatorsAliases — Sequelize recommends you don't use [operators aliases](http://docs.sequelizejs.com/manual/tutorial/querying.html#operators-aliases), but if you really want to you can set them here.
  * @param logger — You can pass in a logger function here for Sequelize to use. Optional, default is `false`, meaning don't log anything.
  * @param options — You can pass in additional options here. Optional.
- * @return { [env]: { database, username, password, dialect, dialectOptions, [operatorsAliases]? } }
+ * @return { [env]: { database, username, password, dialect, dialectOptions } }
  */
-const migrationConfig = (
-  config,
-  defaultDbName,
-  operatorsAliases,
-  logger,
-  options
-) => adapt(configure(config, defaultDbName, operatorsAliases, logger, options))
+const migrationConfig = (config, defaultDbName, logger, options) =>
+  adapt(configure(config, defaultDbName, logger, options))
 
 module.exports = migrationConfig
