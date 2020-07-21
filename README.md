@@ -21,15 +21,15 @@ This library assumes:
 
 ## Install
 
-Add `sequelize-pg-utilities` as a dependency:
+Add `sequelize-pg-utilities` and [`pg`](https://github.com/brianc/node-postgres/tree/master/packages/pg) as dependencies:
 
 ```sh
-npm i sequelize-pg-utilities
+npm i pg sequelize-pg-utilities
 ```
 
-`sequelize-pg-utilities` has one dependency.
+**Note**: `pg` is a peer-dependency of `sequelize-pg-utilities`.
 
-- [`pgtools`](https://www.npmjs.com/package/pgtools)
+-
 
 ## Usage Scenarios
 
