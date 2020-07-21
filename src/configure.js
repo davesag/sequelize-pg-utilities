@@ -25,24 +25,14 @@ const configure = (
   { [env]: config },
   defaultDbName,
   logger = false,
-  {
-    pool: { validate } = {},
-    retry: { match, max } = {},
-    ...additionalOptions
-  } = {}
+  { pool: { validate } = {}, retry: { match, max } = {}, ...additionalOptions } = {}
 ) => {
   const parsedUrl = urlParser(process.env.DATABASE_URL)
 
-  const name =
-    parsedUrl.database ||
-    process.env.DB_NAME ||
-    config.database ||
-    defaultDbName
+  const name = parsedUrl.database || process.env.DB_NAME || config.database || defaultDbName
 
-  const user =
-    parsedUrl.username || process.env.DB_USER || config.username || null
-  const password =
-    parsedUrl.password || process.env.DB_PASS || config.password || null
+  const user = parsedUrl.username || process.env.DB_USER || config.username || null
+  const password = parsedUrl.password || process.env.DB_PASS || config.password || null
 
   const poolOptions = config.pool
     ? {
@@ -61,8 +51,7 @@ const configure = (
   const options = {
     host: parsedUrl.host || process.env.DB_HOST || config.host || 'localhost',
     port: parsedUrl.port || process.env.DB_PORT || config.port || 5432,
-    dialect:
-      parsedUrl.dialect || process.env.DB_TYPE || config.dialect || 'postgres',
+    dialect: parsedUrl.dialect || process.env.DB_TYPE || config.dialect || 'postgres',
     logging: logger, // this can be a logging function or false.
     pool: appendPoolOptions(poolOptions)
   }

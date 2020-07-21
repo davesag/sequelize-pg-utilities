@@ -3,11 +3,7 @@ const { expect } = require('chai')
 const onlyDefined = require('../../src/onlyDefined')
 
 const original = {
-  array: [
-    { inner: 'w00t!', however: undefined },
-    undefined,
-    { outer: 'huzzah!' }
-  ],
+  array: [{ inner: 'w00t!', however: undefined }, undefined, { outer: 'huzzah!' }],
   here: 'is okay',
   test: undefined,
   otherTest: { nah: undefined }
