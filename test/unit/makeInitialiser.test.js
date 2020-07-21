@@ -5,12 +5,10 @@ const proxyquire = require('proxyquire')
 const config = require('../fixtures/config-without-ssl.json')
 
 describe('src/makeInitialiser', () => {
-  const pgTools = {
-    createdb: stub()
-  }
+  const createDb = stub()
 
   const resetStubs = () => {
-    pgTools.createdb.resetBehavior()
+    createDb.resetBehavior()
   }
 
   const resetBoth = () => {
@@ -30,7 +28,7 @@ describe('src/makeInitialiser', () => {
 
     before(async () => {
       makeInitialiser = proxyquire('../../src/makeInitialiser', {
-        pgtools: pgTools,
+        './createDb': createDb,
         './env': 'production'
       })
       init = makeInitialiser(config)
@@ -51,7 +49,7 @@ describe('src/makeInitialiser', () => {
     before(() => {
       sleep.resolves()
       makeInitialiser = proxyquire('../../src/makeInitialiser', {
-        pgtools: pgTools,
+        './createDb': createDb,
         './sleep': sleep
       })
 
@@ -60,7 +58,7 @@ describe('src/makeInitialiser', () => {
 
     context('succeeds', () => {
       before(() => {
-        pgTools.createdb.resolves()
+        createDb.resolves(true)
       })
 
       after(resetStubs)
@@ -73,8 +71,8 @@ describe('src/makeInitialiser', () => {
 
       context('initialisation', () => {
         const expected = {
-          isNew: true,
-          message: `createdb created database '${config.test.database}'`
+          dbNew: true,
+          message: `createDb created database '${config.test.database}'`
         }
 
         before(async () => {
@@ -83,8 +81,8 @@ describe('src/makeInitialiser', () => {
 
         after(resetHistory)
 
-        it('called createdb with the correct data', () => {
-          expect(pgTools.createdb).to.have.been.calledWith(
+        it('called createDb with the correct data', () => {
+          expect(createDb).to.have.been.calledWith(
             match(
               {
                 user: config.test.username,
@@ -106,26 +104,20 @@ describe('src/makeInitialiser', () => {
     context('retries', () => {
       before(async () => {
         // can't use onFirstCall().rejects(...) due to a bug in sinon.
-        pgTools.createdb
-          .onFirstCall()
-          .returns(Promise.reject(new Error('Something went wrong')))
-        pgTools.createdb.onSecondCall().resolves()
+        createDb.onFirstCall().returns(Promise.reject(new Error('Something went wrong')))
+        createDb.onSecondCall().resolves()
 
         await init()
       })
 
       after(resetBoth)
 
-      it('called createdb twice', () => {
-        expect(pgTools.createdb).to.have.been.calledTwice
+      it('called createDb twice', () => {
+        expect(createDb).to.have.been.calledTwice
       })
 
       it('called logger.debug with correct message', () => {
-        expect(logger.debug).to.have.been.calledWith(
-          'Retrying database init in',
-          2,
-          'seconds'
-        )
+        expect(logger.debug).to.have.been.calledWith('Retrying database init in', 2, 'seconds')
       })
 
       it('called sleep with the correct delay', () => {
@@ -135,21 +127,21 @@ describe('src/makeInitialiser', () => {
 
     context('database already exists', () => {
       const expected = {
-        isNew: false,
+        dbNew: false,
         message: `Database '${config.test.database}' already exists`
       }
       let result
 
       before(async () => {
-        pgTools.createdb.rejects('duplicate_database')
+        createDb.resolves(false)
 
         result = await init()
       })
 
       after(resetBoth)
 
-      it('called createdb once', () => {
-        expect(pgTools.createdb).to.have.been.calledOnce
+      it('called createDb once', () => {
+        expect(createDb).to.have.been.calledOnce
       })
 
       it('returned the right result', () => {
@@ -159,7 +151,7 @@ describe('src/makeInitialiser', () => {
 
     context('fails', () => {
       before(() => {
-        pgTools.createdb.rejects('oops')
+        createDb.rejects('oops')
       })
 
       after(resetBoth)
