@@ -1,5 +1,4 @@
-const pgtools = require('pgtools')
-
+const createDb = require('./createDb')
 const sleep = require('./sleep')
 const configure = require('./configure')
 const env = require('./env')
@@ -33,21 +32,13 @@ const makeInitialiser = (config, defaultDbName, logger, options) => {
       }
     }
 
-    try {
-      await pgtools.createdb(dbConfig, name)
-      return {
-        isNew: true,
-        message: `createdb created database '${name}'`
-      }
-    } catch (err) {
-      if (err.name && err.name === 'duplicate_database') {
-        return {
-          isNew: false,
-          message: `Database '${name}' already exists`
-        }
-      }
-      throw err
-    }
+    const dbNew = await createDb(dbConfig, name)
+
+    const message = dbNew
+      ? `createDb created database '${name}'`
+      : `Database '${name}' already exists`
+
+    return { dbNew, message }
   }
 
   const initialise = async (retries = MAX_RETRIES) => {
