@@ -29,8 +29,6 @@ npm i pg sequelize-pg-utilities
 
 **Note**: `pg` is a peer-dependency of `sequelize-pg-utilities`.
 
--
-
 ## Usage Scenarios
 
 ### Configuration
