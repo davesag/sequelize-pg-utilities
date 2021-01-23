@@ -282,7 +282,7 @@ Note this is not used by `makeInitialiser` as it's assumed that you are only usi
 
 ### Prerequisites
 
-- [NodeJS](htps://nodejs.org), 15.1.0+ (I use [`nvm`](https://github.com/creationix/nvm) to manage Node versions — `brew install nvm`.) You must use npm version 7.0.8 or better.
+- [NodeJS](htps://nodejs.org). I use [`nvm`](https://github.com/creationix/nvm) to manage Node versions — `brew install nvm`.
 
 ### Test it
 
