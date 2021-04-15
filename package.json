@@ -1,8 +1,8 @@
 {
   "name": "sequelize-pg-utilities",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "An opinionated set of database utilities that manage creating and connecting to a Postgres database",
-  "author": "Dave Sag <davesag@gmail.com>",
+  "author": "Dave Sag (https://github.com/davesag)",
   "type": "commonjs",
   "license": "MIT",
   "funding": {
