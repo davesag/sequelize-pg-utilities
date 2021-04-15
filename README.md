@@ -29,8 +29,6 @@ npm i pg sequelize-pg-utilities
 
 **Note**: `pg` is a peer-dependency of `sequelize-pg-utilities`.
 
--
-
 ## Usage Scenarios
 
 ### Configuration
@@ -284,13 +282,12 @@ Note this is not used by `makeInitialiser` as it's assumed that you are only usi
 
 ### Prerequisites
 
-- [NodeJS](https://nodejs.org) — Version `8.10` or better.
+- [NodeJS](htps://nodejs.org). I use [`nvm`](https://github.com/creationix/nvm) to manage Node versions — `brew install nvm`.
 
 ### Test it
 
 - `npm test` — runs the unit tests.
 - `npm run test:unit:cov` — runs the unit tests with coverage reporting.
-- `npm run test:mutants` — runs the mutation tests
 
 ### Lint it
 
