@@ -92,7 +92,7 @@ The following environment variables remain unset if they don't appear, or get se
 - `DB_POOL_ACQUIRE` The database pool's `acquire` value.
 - `DB_POOL_EVICT` The database pool's `evict` value.
 
-#### Regarding `DATABASE_URL`.
+#### Regarding `DATABASE_URL`
 
 If you supply the `DATABASE_URL` environment variable, as Heroku and other PaaS systems generally do, then the `configure` function will extract most of what it needs from that and the extracted values will take priority over other values.
 
@@ -280,9 +280,9 @@ Note this is not used by `makeInitialiser` as it's assumed that you are only usi
 | `develop` | [![CircleCI](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/develop.svg?style=svg)](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/develop) | [![codecov](https://codecov.io/gh/davesag/sequelize-pg-utilities/branch/develop/graph/badge.svg)](https://codecov.io/gh/davesag/sequelize-pg-utilities) | [![Vulnerabilities](https://snyk.io/test/github/davesag/sequelize-pg-utilities/develop/badge.svg)](https://snyk.io/test/github/davesag/sequelize-pg-utilities/develop) | Work in progress |
 | `main` | [![CircleCI](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/main.svg?style=svg)](https://circleci.com/gh/davesag/sequelize-pg-utilities/tree/main) | [![codecov](https://codecov.io/gh/davesag/sequelize-pg-utilities/branch/main/graph/badge.svg)](https://codecov.io/gh/davesag/sequelize-pg-utilities) | [![Vulnerabilities](https://snyk.io/test/github/davesag/sequelize-pg-utilities/main/badge.svg)](https://snyk.io/test/github/davesag/sequelize-pg-utilities/main) | Latest stable release |
 
-### Prerequisites
+### Development Prerequisites
 
-- [NodeJS](htps://nodejs.org). I use [`nvm`](https://github.com/creationix/nvm) to manage Node versions — `brew install nvm`.
+- [NodeJS](https://nodejs.org). I use [`nvm`](https://github.com/creationix/nvm) to manage Node versions — `brew install nvm`.
 
 ### Test it
 
