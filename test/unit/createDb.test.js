@@ -17,7 +17,7 @@ describe('src/createDb', () => {
 
   const pg = { Client }
   const createDb = proxyquire('../../src/createDb', {
-    pg: pg
+    pg
   })
 
   const params = {
