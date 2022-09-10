@@ -5,7 +5,7 @@ const sleep = require('../../src/sleep')
 describe('src/sleep', () => {
   let sleptFor
 
-  const sleepTime = 100 // milliseconds
+  const sleepTime = 500 // milliseconds
 
   before(async () => {
     const start = new Date().getTime()
