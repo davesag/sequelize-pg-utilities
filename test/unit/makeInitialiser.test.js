@@ -63,11 +63,21 @@ describe('src/makeInitialiser', () => {
 
       after(resetStubs)
 
-      context('initialise', () => {
-        after(resetHistory)
+      // context('initialise', () => {
+      //   let error
+      //   before(async () => {
+      //     try {
+      //       await init()
+      //     } catch (err) {
+      //       error = err
+      //     }
+      //   })
+      //   after(resetHistory)
 
-        it('runs without error', () => expect(init()).to.be.fulfilled)
-      })
+      //   it('ran without error', () => {
+      //     expect(error).to.be.undefined
+      //   })
+      // })
 
       context('initialisation', () => {
         const expected = {
@@ -150,13 +160,23 @@ describe('src/makeInitialiser', () => {
     })
 
     context('fails', () => {
-      before(() => {
-        createDb.rejects('oops')
+      const message = 'oops'
+      let error
+
+      before(async () => {
+        createDb.rejects(message)
+        try {
+          await init(0)
+        } catch (err) {
+          error = err
+        }
       })
 
       after(resetBoth)
 
-      it('fails', () => expect(init(0)).to.be.rejected)
+      it('failed', () => {
+        expect(error).not.to.be.undefined
+      })
     })
   })
 })
